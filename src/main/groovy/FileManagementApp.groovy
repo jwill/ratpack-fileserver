@@ -190,8 +190,10 @@ public class FileManagementApp {
 	def downloadFile = {filename, dbName, response ->
 		def file = retrieveFile(filename, dbName)
     if (file != null) {
+				println response
+				response.setContentType(file.getContentType())
         response.outputStream << file.getInputStream()
-        response.contentType = file.getContentType()
+				
     } else "File not found"
 	}
 
