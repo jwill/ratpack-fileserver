@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		Files in <strong>${folderName}</strong><br/>
+		<table>
+			<thead>
+				<tr><td>File Name</td><td>File Size</td><td>Options</td></tr>
+			</thead>
+			<tbody>
+				<% for (file in files) { %>
+				<tr><td>${file.filename}</td><td>${file.length}</td>
+						<td>
+							<a href="file/${folderName}/${file.filename}">Download</a> 
+							| 
+							<a href="">Rename</a> 
+							| 
+							<a href="deleteFile/${folderName}/${file.filename}">Delete</a>
+						
+						</td> 
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</body>
+</html>

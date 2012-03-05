@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="../js/jquery.ui.widget.js"></script>
+		<script src="../js/jquery.iframe-transport.js"></script>
+		<script src="../js/jquery.fileupload.js"></script>
+	</head>
+	<body>
+
+	<input id='fileupload' type="file" name="files[]" multiple>
+
+	<script>
+		jQuery(function() {
+			jQuery('#fileupload').fileupload({
+				url: '../uploadFile?folder=${folder}',
+				done: function(e,data) {
+					jQuery('#messages').append(data.result+"<br/>");
+				}
+			});				
+		});
+	</script>
+
+<div id="messages">
+<p>Status Messages</p>
+</div>
+
+	</body>
+</html>
