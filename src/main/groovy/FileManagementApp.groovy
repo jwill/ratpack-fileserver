@@ -108,7 +108,7 @@ public class FileManagementApp {
 	}
 
 	public FileManagementApp() {
-		mongo = new Mongo("localhost",27017)
+		mongo = new Mongo("127.0.0.1",27017)
 		for (name in dbNames) {
 			fs.put name, new GridFS(mongo.getDB(name))
 		}
