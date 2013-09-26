@@ -1,15 +1,13 @@
 import net.yajjl.*
-import com.mongodb.Mongo
+import com.mongodb.*
 import com.mongodb.gridfs.GridFS
 import com.bleedingwolf.ratpack.*
-import org.apache.commons.fileupload.*
 import org.apache.commons.fileupload.servlet.*
 import org.apache.commons.fileupload.disk.*
 
 import org.apache.shiro.realm.*
 import org.apache.shiro.authc.*
 import org.apache.shiro.authz.*
-import org.apache.shiro.subject.*
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.mgt.DefaultSecurityManager
 import org.apache.shiro.authz.permission.WildcardPermission
@@ -39,7 +37,7 @@ public class FileManagementApp {
             token.setRememberMe(true)
             try {
                 currentUser.login(token)
-                render "files.html", [names: dbNames]
+                render "folders.html", [names: dbNames]
             } catch (Exception ex) {
                 println ex.printStackTrace()
                 "Wrong username or password."
@@ -57,7 +55,6 @@ public class FileManagementApp {
                 render "upload.html", [folder: urlparams.dbName]
             } else NOT_LOGGED_IN
         }
-
 
         get("/file/:dbName/:filename") {
             downloadFile(urlparams.filename, urlparams.dbName, response)
@@ -104,7 +101,6 @@ public class FileManagementApp {
     def checkAuth = {
         def currentUser = SecurityUtils.getSubject()
         return currentUser.isAuthenticated()
-
     }
 
     public FileManagementApp() {
@@ -192,7 +188,6 @@ public class FileManagementApp {
             println response
             response.setContentType(file.getContentType())
             response.outputStream << file.getInputStream()
-
         } else "File not found"
     }
 
@@ -204,7 +199,6 @@ public class FileManagementApp {
             if (gridfsService.saveFile(f)) {
                 redirect(action: 'uploadComplete')
             } else {
-
                 flash.message = 'Error occured during upload, please try again.'
                 redirect(action: 'uploadFile')
             }
@@ -213,7 +207,6 @@ public class FileManagementApp {
             redirect(action: 'uploadFile')
         }
     }
-
 
     public static void main(String[] args) {
         new FileManagementApp()
