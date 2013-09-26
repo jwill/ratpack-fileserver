@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="../js/jquery.ui.widget.js"></script>
-		<script src="../js/jquery.iframe-transport.js"></script>
-		<script src="../js/jquery.fileupload.js"></script>
-	</head>
+	<head></head>
 	<body>
 
-	<input id='fileupload' type="file" name="files[]" multiple>
+	<input id='fileupload' type="file">
 
 	<script>
-		jQuery(function() {
-			jQuery('#fileupload').fileupload({
-				url: '../uploadFile?folder=${folder}',
-				done: function(e,data) {
-					jQuery('#messages').append(data.result+"<br/>");
-				}
-			});				
-		});
+        document.getElementById('fileupload').onchange = function() {
+        var form = new FormData();
+        form.append("myFile", document.querySelector('#fileupload').files[0]);
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                document.querySelector("#messages").innerHTML += this.responseText+ "<br/>";
+            }
+        }
+        xhr.open("POST", "/uploadFile?folder=${folder}", true);
+        xhr.send(form);
+        };
 	</script>
 
-<div id="messages">
-<p>Status Messages</p>
-</div>
+    <div id="messages">
+        <p>Status Messages</p>
+    </div>
 
 	</body>
 </html>
