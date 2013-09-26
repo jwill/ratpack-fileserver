@@ -132,7 +132,7 @@ public class FileManagementApp {
 
 		realm.add guest
 
-		realm.addAccount 'admin', 'Jcaue3Jb', 'Administrator'
+		realm.addAccount 'admin', 'CHANGEME', 'Administrator'
 		
 	}
 
